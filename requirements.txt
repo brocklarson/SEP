@@ -5,6 +5,7 @@ xgboost
 sktime
 torch
 scipy
+seaborn
 numba
 ipykernel
 jupyter
