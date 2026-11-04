@@ -51,52 +51,63 @@
         * Extract catch22 features and tune the class weight, gamma, and kernel, then test on test set
         * TSS: 0.48763
 
-5. Triplet Loss 
-    * Configuration
-        * Triplet loss using Euclidean distance
-        * Two encoder options to compare
-            * 1-D Convolutional Encoder
-            * GRU Encoder
-        * Anchor selection using hard and semi-hard NSEPs
-            * Refresh hard negative pool every 250 steps as embedding space changes
-        * Tune and evaluate various downstream classifiers
-            * Logistic Regression
-            * Centroid
-            * kNN
-            * SVM
-            * XGBoost
-    * Primary Challenge
-        * Overfitting   
-    * Experiments
-        * Run each classifier without training to ensure triplet loss is adding value
-        * Random search grid tuning 
-            * learning rate: 10 ** rng.uniform(-4, -2.5)
-            * weight decay: 10 ** rng.uniform(-3, -1.3)
-            * margin: rng.uniform(0.1, 0.6)
-            * dropout: rng.choice([0.0, 0.1, 0.2])
-            * hidden channels: rng.choice([16, 32, 64])
-            * embedding dimensions: rng.choice([16, 32, 64])
-            * hard anchor fraction: rng.uniform(0.0, 0.8)
-            * hard negatives pool: 10 ** rng.uniform(2.3, 3.5)
-            * include hard negatives: rng.choice([False, True])
-        * Classifier specific tuning
+5. Triplet Loss  
+    * Configuration   
+        * Triplet loss using Euclidean distance  
+        * Two encoder options to compare  
+            * 1-D Convolutional Encoder  
+            * GRU Encoder  
+        * Anchor selection using hard and semi-hard NSEPs  
+            * Refresh hard negative pool every 250 steps as embedding space changes  
+        * Tune and evaluate various downstream classifiers  
+            * Logistic Regression  
+            * Centroid  
             * kNN  
-                * k: rng.choice([5, 10, 20, 40, 80])
-            * SVM
-                * kernel: rng.choice(["linear", "rbf"])
-                * C: 10 ** rng.uniform(-2, 1)
-                * gamma: 10 ** rng.uniform(-3, -1)
-            * XGBoost
-                * max depth: rng.choice([2, 3, 4, 6])
-                * min child weight: rng.choice([1, 5, 10, 20])
-                * n estimators: rng.choice([100, 200, 400])
-                * learning rate: 10 ** rng.uniform(-2, -0.7)
-                * colsample bytree: rng.choice([0.3, 0.5, 0.8, 1.0])
-
+            * SVM  
+            * XGBoost  
+    * Primary Challenge  
+        * Overfitting   
+    * Experiments  
+        * Run each classifier without training to ensure triplet loss is adding value  
+        * Random search grid tuning   
+            * learning rate: 10 ** rng.uniform(-5, -3)  
+            * weight decay: 10 ** rng.uniform(-2.5, -1.0)  
+            * margin: rng.uniform(0.2, 0.6)  
+            * dropout: rng.choice([0.2, 0.3, 0.4, 0.5])  
+            * hidden channels: rng.choice([32, 64, 128])  
+            * embedding dimensions: rng.choice([16, 32])  
+            * hard anchor fraction: rng.uniform(0.0, 0.8)  
+            * hard negatives pool: 10 ** rng.uniform(2.0, 3.5)  
+            * include hard negatives: rng.choice([True, False])  
+        * Classifier specific tuning  
+            * kNN    
+                * k: rng.choice([5, 10, 20, 40, 80])  
+            * SVM  
+                * kernel: rng.choice(["linear", "rbf"])  
+                * C: 10 ** rng.uniform(-2, 1)  
+                * gamma: 10 ** rng.uniform(-3, -1)  
+            * XGBoost  
+                * max depth: rng.choice([2, 3, 4, 6])  
+                * min child weight: rng.choice([1, 5, 10, 20])  
+                * n estimators: rng.choice([100, 200, 400])  
+                * learning rate: 10 ** rng.uniform(-2, -0.7)  
+                * colsample bytree: rng.choice([0.3, 0.5, 0.8, 1.0])  
+    * Results  
+        * __A random search was conducted to find the best model configuration. The search comprised 15 seeds, repeated across 3 encoders and 2 random state seeds. Each encoder and state was also tested on an untrained model.__  
+        * Logistic Regression  
+            * TSS: 0.667 ± 0.021  
+        * Centroid  
+            * TSS: 0.637 ± 0.026  
+        * kNN  
+            * TSS: 0.637 ± 0.025  
+        * SVM  
+            * TSS: 0.624 ± 0.013   
+        * XGBoost  
+            * TSS: 0.619 ± 0.046  
 
 
 
 To Try: 
-* MLP encoder with catch 22 feature extraction
-* RUS
-* K cross-fold training set
+* MLP encoder with catch 22 feature extraction  
+* RUS  
+* K cross-fold training set  
