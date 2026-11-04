@@ -1,5 +1,6 @@
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+processed/
 
 # Python Virtual Environments
 venv/
