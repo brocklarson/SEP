@@ -105,9 +105,65 @@
         * XGBoost  
             * TSS: 0.619 ± 0.046  
 
+6. InfoNCE
+    * Configuration
+        * Two loss types to compare
+            * SimCLR 
+            * SupCon
+        * Augmentation 
+            * Gaussian Jitter
+            * Random per-channel scaling
+        * GRU Encoder
+        * Batch Sampling
+            * Ensures a fixed fraction of each batch are SEP examples
+        * Tune and evaluate various downstream classifiers  
+            * Logistic Regression  
+            * Centroid  
+            * kNN  
+            * SVM  
+            * XGBoost 
+    * Primary Challenge  
+        * Overfitting   
+    * Experiments  
+        * Run each classifier without training to ensure triplet loss is adding value  
+        * Random search grid tuning   
+            * learning rate: 10 ** rng.uniform(-5, -3)  
+            * weight decay: 10 ** rng.uniform(-5, -2)  
+            * temperature: rng.choice([0.1, 0.2, 0.5, 1.0])  
+            * hidden channels: rng.choice([16, 32, 64])  
+            * embedding dimensions: rng.choice([16, 32])
+            * batch size: rng.choice([128, 256])  
+            * SEP fraction: rng.uniform(0.1, 0.45)  
+            * noise std: rng.choice([0.05, 0.1, 0.2])
+            * scale std: rng.choice([0.05, 0.1, 0.2])  
+        * Classifier specific tuning  
+            * Logistic Regression   
+                * C: 10 ** rng.uniform(-3, 0.5)  
+            * kNN    
+                * k: rng.choice([20, 40, 60, 80, 100])  
+            * SVM  
+                * C: 10 ** rng.uniform(-3, 0.5)  
+                * gamma: 10 ** rng.choice(["scale", 0.03, 0.1, 0.3, 1.0])  
+            * XGBoost  
+                * max depth: rng.choice([2, 3, 4, 6])  
+                * min child weight: rng.choice([10, 20, 40, 800])  
+                * n estimators: rng.choice([50, 100, 200])   
+                * learning rate: 10 ** rng.uniform(-2.5, -1)  
+                * colsample bytree: rng.choice([0.3, 0.5])    
+    * Results  
+        * __A random search was conducted to find the best model configuration. The search comprised 15 seeds, repeated across 2 random state seeds. Each encoder and state was also tested on an untrained model.__  
+        * Logistic Regression  
+            * TSS: 0.669 ± 0.016  
+        * Centroid  
+            * TSS: 0.669 ± 0.019  
+        * kNN  
+            * TSS: 0.544 ± 0.072  
+        * SVM  
+            * TSS: 0.638 ± 0.036   
+        * XGBoost  
+            * TSS: 0.516 ± 0.071  
 
 
 To Try: 
-* MLP encoder with catch 22 feature extraction  
 * RUS  
 * K cross-fold training set  
