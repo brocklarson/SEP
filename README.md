@@ -54,9 +54,10 @@
 5. Triplet Loss  
     * Configuration   
         * Triplet loss using Euclidean distance  
-        * Two encoder options to compare  
+        * Three encoder options to compare  
             * 1-D Convolutional Encoder  
             * GRU Encoder  
+            * MLP using catch22 extracted features
         * Anchor selection using hard and semi-hard NSEPs  
             * Refresh hard negative pool every 250 steps as embedding space changes  
         * Tune and evaluate various downstream classifiers  
