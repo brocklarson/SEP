@@ -37,19 +37,28 @@
 4. Test baseline classifiers (using hybrid normalization)  
     * Logistic Regression 
         * Tune the C, class_weight, and threshold parameters on validation set, then test on test set
-        * Tune the classification threshold based on the ROC curve to: 0.4818
-        * TSS: 0.42946
+        * TSS: 0.4297 ± 0.0000  
     * XGBoost  
         * Tune the learn_rate, scale_pos_weight, max_depth, min_child_weight, and colsample_bytree, then test on test set
-        * Tune the classification threshold based on the ROC curve to: 0.00720
-        * TSS: 0.64839
+        * TSS: 0.6545 ± 0.0080  
     * GRU
         * Tune the units, dropout, layers, learning rate, and batch size, then test on test set
-        * Tune the classification threshold based on the ROC curve to: 0.6647
-        * TSS: 0.60801 
+        * TSS: 0.5951 ± 0.0323  
     * SVM
         * Extract catch22 features and tune the class weight, gamma, and kernel, then test on test set
-        * TSS: 0.48763
+        * TSS: 0.4876 ± 0.0000 
+    * MLP
+        * Tune the dropout, weight decay, learning rate, and batch size, then test on test set
+        * TSS: 0.5195 ± 0.0134 
+    * LSTM
+        * Tune the dropout, layers, learning rate, and batch size, then test on test set
+        * TSS: 0.6266 ± 0.0151 
+    * RNN
+        * Tune the dropout, layers, learning rate, and batch size, then test on test set
+        * TSS: 0.6130 ± 0.0318 
+    * CNN
+        * Tune the kernel, dropout, layers, learning rate, and batch size, then test on test set
+        * TSS: 0.4227 ± 0.0751 
 
 5. Triplet Loss  
     * Configuration   
@@ -93,6 +102,8 @@
                 * n estimators: rng.choice([100, 200, 400])  
                 * learning rate: 10 ** rng.uniform(-2, -0.7)  
                 * colsample bytree: rng.choice([0.3, 0.5, 0.8, 1.0])  
+        * Epochs = (steps × batch size) / training set size => (256 * 1000) / 12,455 ≈ 20.6 epochs
+            * Approximate because trainig is done for an amount of gradient steps
     * Results  
         * __A random search was conducted to find the best model configuration. The search comprised 15 seeds, repeated across 3 encoders and 2 random state seeds. Each encoder and state was also tested on an untrained model.__  
         * Logistic Regression  
