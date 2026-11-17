@@ -10,8 +10,6 @@
     * Apply various classifiers to normalized data
 * triplet_loss.ipynb
     * Apply triplet loss models to normalized data
-* infonce.ipynb
-    * Apply InfoNCE models to normalized data
 
 ### Pipeline  
 1. Compile 10 raw per-feature CSVs into a usable tensor  
@@ -34,7 +32,7 @@
         * $Xl$ : Log + Z-score
         * $Xs$ : Log + Z-score
 
-4. Test baseline classifiers (using hybrid normalization)  
+4. Test baseline classifiers  
     * Logistic Regression 
         * Tune the C, class_weight, and threshold parameters on validation set, then test on test set
         * TSS: 0.4297 ± 0.0000  
@@ -76,7 +74,8 @@
             * SVM  
             * XGBoost  
     * Primary Challenge  
-        * Overfitting   
+        * Overfitting  
+        * How much is contrastive learning adding? 
     * Experiments  
         * Run each classifier without training to ensure triplet loss is adding value  
         * Random search grid tuning   
@@ -103,7 +102,7 @@
                 * learning rate: 10 ** rng.uniform(-2, -0.7)  
                 * colsample bytree: rng.choice([0.3, 0.5, 0.8, 1.0])  
         * Epochs = (steps × batch size) / training set size => (256 * 1000) / 12,455 ≈ 20.6 epochs
-            * Approximate because trainig is done for an amount of gradient steps
+            * Approximate because training is done for an amount of gradient steps
     * Results  
         * __A random search was conducted to find the best model configuration. The search comprised 15 seeds, repeated across 3 encoders and 2 random state seeds. Each encoder and state was also tested on an untrained model.__  
         * Logistic Regression  
@@ -115,7 +114,7 @@
         * SVM  
             * TSS: 0.624 ± 0.013   
         * XGBoost  
-            * TSS: 0.619 ± 0.046  
+            * TSS: 0.619 ± 0.046 
 
 To Try: 
 * Different Triplet Mining 
