@@ -107,7 +107,7 @@
     * Results  
         * __A random search was conducted to find the best model configuration. The search comprised 15 seeds, repeated across 3 encoders and 2 random state seeds. Each encoder and state was also tested on an untrained model.__  
         * Logistic Regression  
-            * TSS: 0.667 ± 0.021  
+            * TSS: 0.691 ± 0.034      
         * Centroid  
             * TSS: 0.637 ± 0.026  
         * kNN  
@@ -118,5 +118,6 @@
             * TSS: 0.619 ± 0.046  
 
 To Try: 
+* Different Triplet Mining 
 * RUS  
 * K cross-fold training set  
