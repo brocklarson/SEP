@@ -99,7 +99,7 @@
             * XGBoost  
                 * max depth: rng.choice([2, 3, 4, 6])  
                 * min child weight: rng.choice([1, 5, 10, 20])  
-                * n estimators: rng.choice([100, 200, 400])  
+                * n esclatimators: rng.choice([100, 200, 400])  
                 * learning rate: 10 ** rng.uniform(-2, -0.7)  
                 * colsample bytree: rng.choice([0.3, 0.5, 0.8, 1.0])  
         * Epochs = (steps × batch size) / training set size => (256 * 1000) / 12,455 ≈ 20.6 epochs
@@ -117,7 +117,19 @@
         * XGBoost  
             * TSS: 0.619 ± 0.046  
 
-To Try: 
-* Different Triplet Mining 
-* RUS  
-* K cross-fold training set  
+
+* Standard loss  
+* Anchored triplet loss (All other anchors of same class used as positives)  
+* Selective detach (Negatives pushed away but positives aren't pull together)  
+* Semi-hard negatives
+* Distance-weighted negatives  
+* Refresh triplet pool every so often as the change in embedding space  
+* Exclude examples close in time  
+* Amount of anchors  
+* Amount of negatives per anchor  
+* Learning rate, margin, weight decay, dropout  
+* Early stopping  
+* Feature selection  
+* Multiple encoders  
+* Multiple classifiers  
+* Sobol sampler approach to random search  
